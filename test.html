@@ -1,27 +1,35 @@
 <!doctype html>
+
+<!-- We're horribly mixing HTML/JavaScript/CSS all in 1 file for now.  So be it. -->
+
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Testing</title>
+        <title>Local Video via WebRTC</title>
     </head>
 
     <body>
-        <h2>Video Test</h2>
+        <h2>Local Video via WebRTC</h2>
+        Camera and Microphone run time permissions <b>MUST</b> be manually granted for local video to work.
+        <br>
+        We'll set them programmatically in future code.
+        <br>
+        <br>
+
         <div id='videos'>
-            <video id='localVideo' autoplay muted></video>
+            <video id='localVideo' autoplay muted width="240" height="240"></video>
         </div>
 
-
         <br>
         <br>
 
-        <input type="button" value="Make a toast" onClick="showAndroidToast('Hello There')" />
+        <input type="button" value="Send event1 to Android" onClick="hdlEvent1fromJson('Event 1!')" style="height:40px;width:200px" />
+        <br>
+        <br>
+        <input type="button" value="Send event2 to Android" onClick="hdlEvent1fromJson('Event 2!')" style="height:40px;width:200px" />
+
 
         <script type="text/javascript">
-             function showAndroidToast(msg) {
-                Android.showToast(msg);
-             }
-
              var constraints = {video: true, audio: true};
              var localStream = null;
 
@@ -43,9 +51,18 @@
                 console.log('[!] getUserMedia error: ', error);
              };
 
+             function hdlEvent1fromJson(msg) {
+                Android.hdlEvent1fromJson(msg);
+             }
+
+             function hdlEvent2fromJson(msg) {
+                Android.hdlEvent2fromJson(msg);
+             }
+
              window.onload = function() {
                 init();
              };
          </script>
+
     </body>
 </html>
