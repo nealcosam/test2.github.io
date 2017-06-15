@@ -5,11 +5,11 @@
 <html>
     <head>
         <meta charset="utf-8">
-        <title>Local Video via WebRTC</title>
+        <title>WebRTC test (from server URL)</title>
     </head>
 
     <body>
-        <h2>Local Video via WebRTC</h2>
+        <h2>WebRTC test (local URL)</h2>
         Camera and Microphone run time permissions <b>MUST</b> be manually granted for local video to work.
         <br>
         We'll set them programmatically in future code.
@@ -17,29 +17,40 @@
         <br>
 
         <div id='videos'>
-            <video id='localVideo' autoplay muted width="240" height="240"></video>
+            <video id='localVideo' autoplay muted width="240" height="200"></video>
         </div>
 
         <br>
         <br>
 
+        <!-- these buttons pass info to Android -->
         <input type="button" value="Send event1 to Android" onClick="hdlEvent1fromJson('Event 1!')" style="height:40px;width:200px" />
         <br>
         <br>
-        <input type="button" value="Send event2 to Android" onClick="hdlEvent1fromJson('Event 2!')" style="height:40px;width:200px" />
+        <input type="button" value="Send event2 to Android" onClick="hdlEvent2fromJson('Event 2!')" style="height:40px;width:200px" />
+        <br>
+        <br>
+
+        <!-- this field is manipulated from Android -->
+        <h2 id="field0">Text from Android</h2>
 
 
+        <!-- JavaScript functions -->
         <script type="text/javascript">
              var constraints = {video: true, audio: true};
              var localStream = null;
 
+             window.onload = function() {
+                init();
+             };
+
              function init() {
-                console.log('Getting user media with constraints', constraints);
+                console.log('[I] Getting user media with constraints', constraints);
                 navigator.webkitGetUserMedia(constraints, handleUserMediaSuccess, handleUserMediaError);
              };
 
              function handleUserMediaSuccess(stream) {
-                console.log('[+] Successfully got local video stream!');
+                console.log('[I] Successfully got local video stream!');
                 attachMediaStream = function(element, stream) {
                       element.src = window.webkitURL.createObjectURL(stream);
                 };
@@ -48,7 +59,7 @@
 
              function handleUserMediaError(error) {
                 alert('[!] getUserMedia error: ', error);
-                console.log('[!] getUserMedia error: ', error);
+                console.log('[E] getUserMedia error: ', error);
              };
 
              function hdlEvent1fromJson(msg) {
@@ -59,9 +70,6 @@
                 Android.hdlEvent2fromJson(msg);
              }
 
-             window.onload = function() {
-                init();
-             };
          </script>
 
     </body>
