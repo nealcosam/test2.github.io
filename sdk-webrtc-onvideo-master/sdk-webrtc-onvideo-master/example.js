@@ -116,6 +116,15 @@ define([
 			setMuteButton(muted);
 	});
 	
+	//////////////////////////////// neal //////////////////////////////////////
+	function nealToggleVideo() {
+        var muted = RTCClient.toggleVideoMute();
+		if(muted)
+			setMuteButton(muted);		
+	};
+	//////////////////////////////// neal //////////////////////////////////////
+	
+	
 	function unmuteVideo() {
 		setMuteButton(false);
 	};
