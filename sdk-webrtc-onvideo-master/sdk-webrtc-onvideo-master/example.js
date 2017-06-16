@@ -118,9 +118,9 @@ define([
 	
 	//////////////////////////////// neal //////////////////////////////////////
 	function nealToggleVideo() {
-        var muted = RTCClient.toggleVideoMute();
-		if(muted)
-			setMuteButton(muted);		
+		console.log("************* nealToggleVideo 222");
+        	//var muted = RTCClient.toggleVideoMute();
+		//if(muted) setMuteButton(muted);		
 	};
 	//////////////////////////////// neal //////////////////////////////////////
 	
