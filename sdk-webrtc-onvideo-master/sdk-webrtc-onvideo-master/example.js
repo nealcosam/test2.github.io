@@ -1,3 +1,7 @@
+/*
+  6/16/2017, glenn
+   Modified example for Samsung Android Native Bluejeans via WebRTC
+*/
 define([
 	"jquery",
 	"underscore",
@@ -76,54 +80,77 @@ define([
 		reject(error);
 	});
 	
+	
+	//------------------------------------------------------------------
+	// JQuery event handler intercepts
+	//
+	
 	// Device and Connection UI Handlers
-	$("#audioIn").change( function() {
+	$("#audioIn").change( changeAudioIn );
+	$("#audioOut").change(changeAudioOut );
+	$("#videoIn").change( changeVideoIn );
+	$("#videoBw").change( setVideoBandwidth );
+	
+	// Mute UI handlers
+	$("#toggleAudioMute").click( toggleAudioMute );
+    $("#toggleVideoMute").click( toggleVideoMute );
+	// Meeting UI handlers
+    $("#joinMeeting").click( function() {
+		var meetingParams = {
+            numericMeetingId   : $('#id').val(),
+            attendeePasscode    : $('#passCode').val(),
+            displayName : $('#yourName').val()
+        };
+		joinMeeting(mp);
+    });
+    $("#leaveMeeting").click( leaveMeeting );
+	
+	//
+	//------------------------------------------------------------------
+
+
+	//------------------------------------------------------------------
+	// discrete Javascript handlers mapping UI actions to BlueJeans commands
+	//	
+	
+	changeAudioIn = function(){
 		var who = $("#audioIn").prop('selectedIndex');
 		console.log("UI: audio input changed: " + who);
 		RTCClient.changeAudioInput(who);
-	});
+	};
 
-	$("#audioOut").change( function() {
+	changeAudioOut = function() {
 		var who = $("#audioOut").prop('selectedIndex');
 		console.log("UI: audio output changed: " + who );
 		RTCClient.changeAudioOutput(who);
-	});
+	};
 	
-	$("#videoIn").change( function() {
+	changeVideoIn = function() {
 		var who = $("#videoIn").prop('selectedIndex');
 		console.log("UI: video input changed: " + who );
 		RTCClient.changeVideoInput(who);
-	});
+	};
 	
-	$("#videoBw").change( function() {
+	setVideoBandwidth = function() {
 		var bw = $("#videoBw").prop('value');
 		console.log("UI: Video BW is changed " + bw);
 		RTCClient.setVideoBandwidth(bw);
-	});
+	};
 	
 	
-	// Mute UI handlers
-	$("#toggleAudioMute").click(function() {
+	toggleAudioMute = function() {
         var muted = RTCClient.toggleAudioMute();
 		var updatedText = muted ? "Unmute Audio" : "Mute Audio";
 		$("#toggleAudioMute").html(updatedText);
 		console.log(muted ? "Audio is Muted now" : "Audio is Unmuted now");	
-    });
+    };
 
-    $("#toggleVideoMute").click(function() {
+	
+	toggleVideoMute = function() {
         var muted = RTCClient.toggleVideoMute();
 		if(muted)
 			setMuteButton(muted);
-	});
-	
-	//////////////////////////////// neal //////////////////////////////////////
-	function nealToggleVideo() {
-		console.log("************* nealToggleVideo 222");
-        	//var muted = RTCClient.toggleVideoMute();
-		//if(muted) setMuteButton(muted);		
 	};
-	//////////////////////////////// neal //////////////////////////////////////
-	
 	
 	function unmuteVideo() {
 		setMuteButton(false);
@@ -135,18 +162,20 @@ define([
     };
 	
 
-	// Meeting UI handlers
-    $("#joinMeeting").click(function() {
-		var meetingParams = {
-            numericMeetingId   : $('#id').val(),
-            attendeePasscode    : $('#passCode').val(),
-            displayName : $('#yourName').val()
-        };
-        RTCClient.joinMeeting(meetingParams);
-    });
-
-    $("#leaveMeeting").click(function() {
+/*
+   the mp parameter is a JSON object with these fields:
+	{
+			numericMeetingId   : <string> the BlueJeans meeting Identifier,
+            attendeePasscode   : <string> <opt> the passcode for meeeting -or- moderator's code,
+            displayName        : <string> the name you want shown on roster 
+	}
+*/	
+	joinMeeting = function( mp ) {
+        RTCClient.joinMeeting(mp);
+	};
+	
+	leaveMeeting = function() {
         RTCClient.leaveMeeting();
-    });
+	};
 
 });
