@@ -15,7 +15,7 @@ define([
 
 ], function($, _, RTCManager, defaultRTCParams, BJN, RTCClient ) {
 
-    console.log("(example.js): BJN WebRTC Example 100");
+    console.log("(example.js): BJN WebRTC Example 101");
 	
 	$("#joinMeeting, #leaveMeeting").click(function(){
 		$(this).addClass("hidden");
@@ -167,7 +167,7 @@ define([
 	};
 	
 	
-	nealTestFunction2 = function() {
+	window.nealTestFunction2 = function() {
 		console.log("nealTestFunction 2222() called");
 	};
 	////////////////// neal test //////////////////
