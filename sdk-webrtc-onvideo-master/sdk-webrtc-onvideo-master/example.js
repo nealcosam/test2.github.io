@@ -15,7 +15,7 @@ define([
 
 ], function($, _, RTCManager, defaultRTCParams, BJN, RTCClient ) {
 
-    console.log("(example.js): BJN WebRTC Example");
+    console.log("(example.js): BJN WebRTC Example 99");
 	
 	$("#joinMeeting, #leaveMeeting").click(function(){
 		$(this).addClass("hidden");
