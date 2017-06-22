@@ -161,7 +161,13 @@ define([
 		$("#toggleVideoMute").html(updatedText);	
     };
 	
-
+	////////////////// neal test //////////////////
+	function nealTestFunction() {
+		console.log("nealTestFunction() called");
+	};
+	////////////////// neal test //////////////////
+	
+	
 /*
    the mp parameter is a JSON object with these fields:
 	{
