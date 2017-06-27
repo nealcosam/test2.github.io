@@ -14,9 +14,10 @@
             $("#holderID").html("nealTestFunction() hit!");        
         }        
         
+        <!-- receive a param from Android/Java land -->
         window.nealTestParamFunction = function(param) {
             console.log("nealTestParamFunction() " + param);
-            $("#holderID").html("nealTestParamFunction() hit!" + param);        
+            $("#holderID").html("nealTestParamFunction() hit! " + param);        
         }      
     });   
      
