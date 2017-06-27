@@ -1,2 +1,2 @@
 # test2.github.io
-Testing
+Test web code (HTML/JavaScript/CSS) for WebRTC experiment
